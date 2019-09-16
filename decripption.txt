@@ -1,0 +1,6 @@
+SPECIFIC OBJECTIVES
+1.To provide online payment platform where traders can pay via mpesa
+2.To auto generate business permits for the traders in the informal sector
+3.To provide revenue payment plans on daily, monthly or yearly basis for the traders.
+4To provide revenue payment reports for use by the county governments.
+5.To map traders using phone verification sms
