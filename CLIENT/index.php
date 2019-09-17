@@ -43,13 +43,36 @@
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="index.html">Smart Revenue</a>
+    <a class="navbar-brand mr-1" href="index.php">Smart Revenue</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
     </button>
 
     <!-- Navbar Search -->
+
+    <?php
+    $phone =$_SESSION['username'];
+    $sql = "SELECT * FROM member WHERE mobile_number = '$phone'";
+    $result = mysqli_query($db, $sql);
+
+    while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
+      $fname= strtoupper($row[1]);
+      $names = $row[1]." ".$row[2];
+      $phone = $row[3];
+      $ver = $row[5];
+      $street = $row[7];
+    }
+    if($ver == 0){
+      $stat = 'NOT VERIFIED';
+    }elseif($ver==1){
+      $stat = 'VERIFIED';
+    }
+    else{
+      $stat = 'ERROR VERIFYING ACCOUNT';
+    }
+    ?>
+
   
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
       <div class="input-group">
@@ -66,7 +89,7 @@
     <ul class="navbar-nav ml-auto ml-md-0">
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <?php echo "MI NI :";  echo $_SESSION["username"]; ?> <i class="fas fa-user-circle fa-fw"> </i>
+        <?php  echo $phone." ".$fname; ?> <i class="fas fa-user-circle fa-fw"> </i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
           <a class="dropdown-item" href="#">Make Payments</a>
@@ -141,7 +164,7 @@
                 <div class="card-body-icon">
                   <i class="fas fa-fw fa-shopping-cart"></i>
                 </div>
-                <div class="mr-5">Account Status : <b> ACTIVE !</b></div>
+                <div class="mr-5">Account Status : <b> <?=$stat?></b></div>
               </div>
               <!-- <a class="card-footer text-white clearfix small z-1" href="#">
                 <span class="float-left">View Details</span>
@@ -191,9 +214,9 @@
                 </tfoot>
               <tr>
                 <td>
-                    Name  : Raven Maajabu  <br>
-                    Tel   : 0718610463 <br>
-                    Status: Active 
+                    Name  : <?=$names?>  <br>
+                    Tel   : <?=$phone?> <br>
+                    Status: <?=$stat?> 
                 </td>
                 <td>
                    Total Payments: 42 <br>
