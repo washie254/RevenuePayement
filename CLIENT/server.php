@@ -22,12 +22,33 @@
 		$street = mysqli_real_escape_string($db, $_POST['street']);
 		$password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
 		$password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
+		$verified = 0 ;
 
 		// form validation: ensure that the form is correctly filled
         if (empty($firstname)) { array_push($errors, "First name is required"); }
         if (empty($lastname)) { array_push($errors, "Lastname is required"); }
 		if (empty($street)) { array_push($errors, "Select A street"); }
 		if (empty($password_1)) { array_push($errors, "Password is required"); }
+
+		// form validation: ensure that the form is correctly filled
+		function validate_phone_number($phone)
+		{
+			// Allow +, - and . in phone number
+			$filtered_phone_number = filter_var($phone, FILTER_SANITIZE_NUMBER_INT);
+			// Remove "-" from number
+			$phone_to_check = str_replace("-", "", $filtered_phone_number);
+			// Check the lenght of number
+			// This can be customized if you want phone number from a specific country
+			if (strlen($phone_to_check) < 10 || strlen($phone_to_check) > 14) {
+			return false;
+			} else {
+			return true;
+			}
+		}
+		//VALIDATE PHONE NUMBER 
+		if (validate_phone_number($phone) !=true) {
+			array_push($errors, "Invalid phone number");
+		}
 
 		if ($password_1 != $password_2) { array_push($errors, "The two passwords do not match"); }
 
@@ -36,13 +57,9 @@
 			$password = md5($password_1);//encrypt the password before saving in the database
 			//$username = strtoupper($username);
 			// $status = "PENDING";
-			 $query = "INSERT INTO member (firstname, lastname, verification_code, verified, password, street) 
-					  VALUES('$username', '$email', '$password')";
-			// mysqli_query($db, $query);
-
-			// $query2 = "INSERT INTO clearance (student_reg, cod, librarian, housekeeper, dean_of_students, sports_officer, registrar, finance) 
-			// 		  		VALUES('$username', '$status', '$status','$status', '$status','$status', '$status','$status')";
-			// mysqli_query($db, $query2);
+			 $query = "INSERT INTO member (firstname, lastname, mobile_number, verified, password, street) 
+					  VALUES('$firstname','$lastname','$phone','$verified','$password','$street')";
+			 mysqli_query($db, $query);
 
 			$_SESSION['username'] = $username;
 			$_SESSION['success'] = "You are now logged in";
@@ -55,15 +72,35 @@
 
 	// LOGIN USER
 	if (isset($_POST['login_user'])) {
-		$username = mysqli_real_escape_string($db, $_POST['username']);
+		$phone = mysqli_real_escape_string($db, $_POST['phone']);
 		$password = mysqli_real_escape_string($db, $_POST['password']);
 
-		if (empty($username)) { array_push($errors, "Username is required"); }
+		// form validation: ensure that the form is correctly filled
+		function validate_phone_number($phone)
+		{
+			// Allow +, - and . in phone number
+			$filtered_phone_number = filter_var($phone, FILTER_SANITIZE_NUMBER_INT);
+			// Remove "-" from number
+			$phone_to_check = str_replace("-", "", $filtered_phone_number);
+			// Check the lenght of number
+			// This can be customized if you want phone number from a specific country
+			if (strlen($phone_to_check) < 10 || strlen($phone_to_check) > 14) {
+			return false;
+			} else {
+			return true;
+			}
+		}
+		//VALIDATE PHONE NUMBER 
+		if (validate_phone_number($phone) !=true) {
+			array_push($errors, "Invalid phone number");
+		}
+		
 		if (empty($password)) { array_push($errors, "Password is required"); }
+
 
 		if (count($errors) == 0) {
 			$password = md5($password);
-			$query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+			$query = "SELECT * FROM member WHERE mobile_number='$phone' AND password='$password'";
 			$results = mysqli_query($db, $query);
 
 			if (mysqli_num_rows($results) == 1) {
@@ -71,7 +108,7 @@
 				$_SESSION['success'] = "You are now logged in";
 				header('location: index.php');
 			}else {
-				array_push($errors, "Wrong username/password combination");
+				array_push($errors, "Wrong phone number/password combination");
 			}
         }
     }

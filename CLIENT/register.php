@@ -60,7 +60,7 @@
             <div class="form-row">
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="password" id="phone" class="form-control" name="phone" placeholder="phone number" required="required">
+                  <input type="text" id="phone" class="form-control" name="phone" placeholder="phone number" required="required">
                   <label for="phone">Tel No. </label>
                 </div>
               </div>

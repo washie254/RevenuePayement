@@ -26,17 +26,29 @@
     <div class="card card-login mx-auto mt-5">
       <div class="card-header">Login</div>
       <div class="card-body">
-        <form>
+      <style>
+          .error {
+            width: 92%; 
+            margin: 0px auto; 
+            padding: 10px; 
+            border: 1px solid #a94442; 
+            color: #a94442; 
+            background: #f2dede; 
+            border-radius: 5px; 
+            text-align: left;
+          }
+        </style>
+        <form method="post" action="login.php">
           <?php include('errors.php'); ?>
           <div class="form-group">
             <div class="form-label-group">
-              <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
-              <label for="inputEmail">Email address</label>
+              <input type="text" name="phone" id="phone" class="form-control" placeholder="TEL NO." required="required" autofocus="autofocus">
+              <label for="phone">Tel. No</label>
             </div>
           </div>
           <div class="form-group">
             <div class="form-label-group">
-              <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
+              <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
               <label for="inputPassword">Password</label>
             </div>
           </div>
@@ -48,7 +60,7 @@
               </label>
             </div>
           </div>
-          <a class="btn btn-primary btn-block" href="index.html">Login</a>
+          <button class="btn btn-primary btn-block" type="submit" name="login_user">Login</button>
         </form>
         <div class="text-center">
           <a class="d-block small mt-3" href="register.php">Register an Account</a>
