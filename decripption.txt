@@ -4,3 +4,32 @@ SPECIFIC OBJECTIVES
 3.To provide revenue payment plans on daily, monthly or yearly basis for the traders.
 4To provide revenue payment reports for use by the county governments.
 5.To map traders using phone verification sms
+
+
+verify, register, :
+   type of business,
+   names, 
+   id, 
+   phone, 
+   nyeri town streets.
+
+active, payment settings; daily weekly monthly yearly; 
+
+pament : takes amount and pay 
+
+generate permit : date of expiry: 
+
+payment history view for user:
+
+
+ADMIN;
+- creates finance officer + add agents
+
+agents:
+- view users in location
+- query for the ones who havent payments 
+
+
+finance;
+- finance officer to view payment history. 
+
