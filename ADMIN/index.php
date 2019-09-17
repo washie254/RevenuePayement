@@ -106,13 +106,13 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">
-          <i class="fas fa-fw fa-chart-area"></i>
+          <i class="fas fa-fw fa-user"></i>
           <span>Add Staff</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">
-          <i class="fas fa-fw fa-table"></i>
-          <span>View Users</span></a>
+          <i class="fas fa-fw fa-users"></i>
+          <span>View Staff</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">
@@ -126,7 +126,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">
-          <i class="fas fa-fw fa-user"></i>
+          <i class="fas fa-fw fa-users"></i>
           <span>Add Admin</span></a>
       </li>
     </ul>
