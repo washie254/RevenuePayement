@@ -215,7 +215,18 @@
               <tr>
                 <td>
                     Name  : <?=$names?>  <br>
-                    Tel   : <?=$phone?> <br>
+                    Tel   : <?=$phone?>  &nbsp; &nbsp; &nbsp; &nbsp;
+                     <?php
+                      if($ver==1){
+                        echo '<img src="icons/check-2x.png"> Verified ';
+                      }
+                      elseif($ver==0){
+                        echo '<a href="#"><button type="button" class="btn btn-outline-danger">Verify</button></a>';
+                      }
+                      else{
+                        echo '<button type="button" class="btn btn-outline-secondary">Not Determined</button>';
+                      }
+                     ?> <br>
                     Status: <?=$stat?> 
                 </td>
                 <td>

@@ -5,7 +5,7 @@ class DB{
     private $dbUsername = "root";
     private $dbPassword = "";
     private $dbName     = "revenue_system";
-    private $tblName    = "mobile_numbers";
+    private $tblName    = "member";
     
     public function __construct(){
         if(!isset($this->db)){
