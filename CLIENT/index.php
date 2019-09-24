@@ -61,7 +61,9 @@
       $names = $row[1]." ".$row[2];
       $phone = $row[3];
       $ver = $row[5];
-      $street = $row[7];
+      $email = $row [6];
+      $evar = $row[8];
+      $street = $row[10];
     }
     if($ver == 0){
       $stat = 'NOT VERIFIED';
@@ -218,7 +220,7 @@
                     Tel   : <?=$phone?>  &nbsp; &nbsp; &nbsp; &nbsp;
                      <?php
                       if($ver==1){
-                        echo '<img src="icons/check-2x.png"> Verified ';
+                        echo '<img src="icons/check-2x.png"><b style="color:green;">Verified </b> ';
                       }
                       elseif($ver==0){
                         echo '<a href="#"><button type="button" class="btn btn-outline-danger">Verify</button></a>';
@@ -227,6 +229,20 @@
                         echo '<button type="button" class="btn btn-outline-secondary">Not Determined</button>';
                       }
                      ?> <br>
+                     Email: <?=$email?>
+                      <?php
+                        if($evar==1){
+                          echo '<img src="icons/check-2x.png"> <b style="color:green;">Verified </b> ';
+                        }
+                        elseif($evar==0){
+                          echo '<a href="mailOTP/index.php?id='.$phone.'&email='.$email.'&names='.$names.'"><button type="button" class="btn btn-outline-danger">Verify</button></a>';
+                        }
+                        else{
+                          echo '<button type="button" class="btn btn-outline-secondary">Not Determined</button>';
+                        }
+                      ?>
+                       
+                     <br>
                     Status: <?=$stat?> 
                 </td>
                 <td>
