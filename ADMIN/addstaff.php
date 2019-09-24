@@ -147,35 +147,117 @@
        
 
         <!-- Area Chart Example-->
-        <div class="card mb-3">
-          <div class="card-header">
-            <i class="fas fa-chart-area"></i>
-            Account Information
-          </div>
-          <div class="card-body">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <thead>
-                <tr>
-                  <th>Current Admin</th>
-                  <th>Account Information</th>
-                </tr>
-              <thead>
-              <tr>
-                <td>
-                    Name  : <?=$tuname?>  <br>
-                    Name  : <?=$names?>  <br>
-                    Tel   : <?=$phone?> <br>
-                    email:  <?=$email?> <br>
-                </td>
-                <td>
-                   Staff Added: 6 <br>
-                   total Staff: 15 <br>
+        <div class="card mb-3"><br>
+          <!-- ///////////////////////////////////////////// -->
+          <div class="container">
+            <div class="card card-register" style="width:98%;">
+            <div class="card-header">ADD STAFF</div>
+            <div class="card-body">
+                <style>
+                .error {
+                    width: 92%; 
+                    margin: 0px auto; 
+                    padding: 10px; 
+                    border: 1px solid #a94442; 
+                    color: #a94442; 
+                    background: #f2dede; 
+                    border-radius: 5px; 
+                    text-align: left;
+                }
+                </style>
+                <form method="post" action="register.php">
+                <?php include('errors.php'); ?>
 
-                </td>
-              </tr>
-            </table>
-          </div>
-          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                <div class="form-group">
+                    <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-label-group">
+                        <input type="text" id="username" class="form-control" name="username" placeholder="username" required="required">
+                        <label for="username">Username. </label>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-label-group">
+                        <input type="text" id="firstName"  name="firstname" class="form-control" placeholder="First name" required="required" autofocus="autofocus">
+                        <label for="firstName">First name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-label-group">
+                        <input type="text" id="lastName" name="lastname" class="form-control" placeholder="Last name" required="required">
+                        <label for="lastName">Last name</label>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-label-group">
+                        <input type="text" id="phone" class="form-control" name="phone" placeholder="phone number" required="required">
+                        <label for="phone">Tel No. </label>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-label-group">
+                        <select type="text" id="category" name="category" class="form-control" required="required">
+                            <option value="Finance">Finance</option>
+                            <option value="Field">Field</option>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-label-group">
+                        <textarea type="text" id="taskdescription" class="form-control" name="taskdescription" placeholder="task description" required="required"></textarea>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-label-group">
+                        <input type="text" id="email" class="form-control" name="email" placeholder="email" required="required">
+                        <label for="email">Email. </label>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-label-group">
+                        <input type="password" id="inputPassword" class="form-control" name="password_1" placeholder="Password" required="required">
+                        <label for="inputPassword">Password</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-label-group">
+                        <input type="password" id="confirmPassword" class="form-control"  name="password_2" placeholder="Confirm password" required="required">
+                        <label for="confirmPassword">Confirm password</label>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-block" type="submit" name="reg_admin">ADD STAFF</button>
+                </form>
+                <div class="text-center">
+                <!-- <a class="d-block small mt-3" href="login.php">Login Page</a> -->
+                <!-- <a class="d-block small" href="forgot-password.php">Forgot Password?</a> -->
+                </div>
+            </div>
+            </div>
+            </div>
+          <!-- ///////////////////////////////////////////// -->
         </div>
 
    

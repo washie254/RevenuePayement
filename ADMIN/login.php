@@ -43,7 +43,7 @@
           <div class="form-group">
             <div class="form-label-group">
               <input type="text" name="username" id="username" class="form-control" placeholder="Username." required="required" autofocus="autofocus">
-              <label for="username">Tel. No</label>
+              <label for="username">Username</label>
             </div>
           </div>
           <div class="form-group">
