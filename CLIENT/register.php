@@ -64,8 +64,15 @@
                   <label for="phone">Tel No. </label>
                 </div>
               </div>
+              <div class="col-md-6">
+                <div class="form-label-group">
+                  <input type="email" id="email" class="form-control" name="email" placeholder="email address" required="required">
+                  <label for="email">Email </label>
+                </div>
+              </div>
             </div>
           </div>
+        
           <div class="form-group">
             <div class="form-label-group">
               <select type="email" id="inputStreet" name="street" class="form-control" required="required">

@@ -20,15 +20,19 @@
         $lastname = mysqli_real_escape_string($db, $_POST['lastname']);
 		$phone = mysqli_real_escape_string($db, $_POST['phone']);
 		$street = mysqli_real_escape_string($db, $_POST['street']);
+		$email = mysqli_real_escape_string($db, $_POST['email']);
 		$password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
 		$password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
 		$verified = 0 ;
+		$emver = 0 ;
+
 
 		// form validation: ensure that the form is correctly filled
         if (empty($firstname)) { array_push($errors, "First name is required"); }
         if (empty($lastname)) { array_push($errors, "Lastname is required"); }
 		if (empty($street)) { array_push($errors, "Select A street"); }
 		if (empty($password_1)) { array_push($errors, "Password is required"); }
+		if (empty($email)) { array_push($errors, "Email is"); }
 
 		// form validation: ensure that the form is correctly filled
 		function validate_phone_number($phone)
@@ -57,8 +61,8 @@
 			$password = md5($password_1);//encrypt the password before saving in the database
 			//$username = strtoupper($username);
 			// $status = "PENDING";
-			 $query = "INSERT INTO member (firstname, lastname, mobile_number, verified, password, street) 
-					  VALUES('$firstname','$lastname','$phone','$verified','$password','$street')";
+			 $query = "INSERT INTO member (firstname, lastname, mobile_number, verified, password,email,emailverification, street) 
+					  VALUES('$firstname','$lastname','$phone','$verified','$password','$email','$emver','$street')";
 			 mysqli_query($db, $query);
 
 			$_SESSION['username'] = $phone;
