@@ -3,7 +3,7 @@ API_KEY=SgIiVCcX57aQAXPLOOtQQFbh2d6rZRMW
 
 APP_DEBUG=true
 APP_ENV=development
-APP_KEY=SgIiVCcX57aQAXPLOOtQQFbh2d6rZRMW
+APP_KEY=base64:pik02zo6QCQSsn2q09TFvModbgzm331MRj90r87v+o8=
 APP_LOG=errorlog
 
 # By default, if you'd like to match this install MySQL locally.
@@ -14,10 +14,10 @@ APP_LOG=errorlog
 
 DB_DATABASE=revenue_system
 DB_HOST=localhost
-DB_PASSWORD=
+DB_PASSWORD=secret
 DB_PORT=3306
 DB_USERNAME=root
-MYSQL_DATABASE=revenue_system
+MYSQL_DATABASE=account_security
 MYSQL_PASSWORD=
 MYSQL_PORT=3306
 MYSQL_ROOT_PASSWORD=
