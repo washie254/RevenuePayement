@@ -223,7 +223,8 @@
                         echo '<img src="icons/check-2x.png"><b style="color:green;">Verified </b> ';
                       }
                       elseif($ver==0){
-                        echo '<a href="#"><button type="button" class="btn btn-outline-danger">Verify</button></a>';
+                       
+                        echo '<a href="http://127.0.0.1:8081/verify/?id='.$phone.'"><button type="button" class="btn btn-outline-danger">Verify</button></a>';
                       }
                       else{
                         echo '<button type="button" class="btn btn-outline-secondary">Not Determined</button>';
