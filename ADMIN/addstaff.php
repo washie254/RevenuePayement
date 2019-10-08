@@ -165,7 +165,7 @@
                     text-align: left;
                 }
                 </style>
-                <form method="post" action="register.php">
+                <form method="post" action="addstaff.php">
                 <?php include('errors.php'); ?>
 
                 <div class="form-group">
@@ -248,7 +248,7 @@
                     </div>
                     </div>
                 </div>
-                <button class="btn btn-primary btn-block" type="submit" name="reg_admin">ADD STAFF</button>
+                <button class="btn btn-primary btn-block" type="submit" name="add_staff">ADD STAFF</button>
                 </form>
                 <div class="text-center">
                 <!-- <a class="d-block small mt-3" href="login.php">Login Page</a> -->

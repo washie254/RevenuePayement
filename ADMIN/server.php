@@ -99,4 +99,63 @@
     }
 
 
+	//ADD A STAFF MEMBER 
+	if (isset($_POST['add_staff'])) {
+		// receive all input values from the form
+		$username = mysqli_real_escape_string($db, $_POST['username']);
+		$email = mysqli_real_escape_string($db, $_POST['email']);
+        $firstname = mysqli_real_escape_string($db, $_POST['firstname']);
+        $lastname = mysqli_real_escape_string($db, $_POST['lastname']);
+		$phone = mysqli_real_escape_string($db, $_POST['phone']);
+		$category = mysqli_real_escape_string($db, $_POST['category']);
+		$taskdescription = mysqli_real_escape_string($db, $_POST['taskdescription']);
+		$password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
+		$password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
+		$status = 'ACTIVE' ;
+
+		// form validation: ensure that the form is correctly filled
+		if (empty($username)) { array_push($errors, "Username is required"); }
+		if (empty($phone)) { array_push($errors, "Phone is required"); }
+		if (empty($email)) { array_push($errors, "Email is required"); }
+        if (empty($firstname)) { array_push($errors, "First name is required"); }
+		if (empty($lastname)) { array_push($errors, "Lastname is required"); }
+		if (empty($password_1)) { array_push($errors, "Add a task description "); }
+		if (empty($password_1)) { array_push($errors, "Password is required"); }
+
+		// form validation: ensure that the form is correctly filled
+		function validate_phone_number($phone)
+		{
+			// Allow +, - and . in phone number
+			$filtered_phone_number = filter_var($phone, FILTER_SANITIZE_NUMBER_INT);
+			// Remove "-" from number
+			$phone_to_check = str_replace("-", "", $filtered_phone_number);
+			// Check the lenght of number
+			// This can be customized if you want phone number from a specific country
+			if (strlen($phone_to_check) < 10 || strlen($phone_to_check) > 14) {
+			return false;
+			} else {
+			return true;
+			}
+		}
+		//VALIDATE PHONE NUMBER 
+		if (validate_phone_number($phone) !=true) {
+			array_push($errors, "Invalid phone number");
+		}
+
+		if ($password_1 != $password_2) { array_push($errors, "The two passwords do not match"); }
+
+		// register user if there are no errors in the form
+		if (count($errors) == 0) {
+			$password = md5($password_1);//encrypt the password before saving in the database
+			//$username = strtoupper($username);
+			// $status = "PENDING";
+			$query = "INSERT INTO staff (username, firstname, lastname, email, phone, category, description, password, status) 
+					  VALUES('$username','$firstname', '$lastname',	'$email', '$phone', '$category','$taskdescription', '$password'	'$status')";
+			mysqli_query($db, $query);
+
+			header('location: addstaff.php');
+		}
+
+	}
+
 ?>
