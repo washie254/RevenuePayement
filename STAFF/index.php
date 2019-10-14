@@ -85,7 +85,7 @@
         <?php  echo $phone." ".$tuname; ?> <i class="fas fa-user-circle fa-fw"> </i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="#">Add Staff</a>
+          <a class="dropdown-item" href="#">Operations </a>
           <a class="dropdown-item" href="#">View Users</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
@@ -106,14 +106,14 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="addstaff.php">
+        <a class="nav-link" href="#">
           <i class="fas fa-fw fa-user"></i>
-          <span>Add Staff</span></a>
+          <span>Operations</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">
           <i class="fas fa-fw fa-users"></i>
-          <span>View Staff</span></a>
+          <span>View Users</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">
@@ -124,11 +124,6 @@
         <a class="nav-link" href="#">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Reports</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fas fa-fw fa-users"></i>
-          <span>Add Admin</span></a>
       </li>
     </ul>
 
@@ -157,7 +152,7 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
-                  <th>Current Admin</th>
+                  <th>Current Staff Details</th>
                   <th>Account Information</th>
                 </tr>
               <thead>
@@ -167,6 +162,7 @@
                     Name  : <?=$names?>  <br>
                     Tel   : <?=$phone?> <br>
                     email:  <?=$email?> <br>
+                    Department: <?=$dept?>
                 </td>
                 <td>
                    Staff Added: 6 <br>
