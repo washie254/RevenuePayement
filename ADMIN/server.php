@@ -11,7 +11,7 @@
 	
 
 	// connect to database
-	$db = mysqli_connect('localhost', 'root', '', 'revenue_system');
+	$db = mysqli_connect('localhost', 'root', '', 'dkut_revenue_system');
 
 	// REGISTER USER
 	if (isset($_POST['reg_admin'])) {
@@ -119,8 +119,8 @@
 		if (empty($email)) { array_push($errors, "Email is required"); }
         if (empty($firstname)) { array_push($errors, "First name is required"); }
 		if (empty($lastname)) { array_push($errors, "Lastname is required"); }
-		if (empty($password_1)) { array_push($errors, "Add a task description "); }
 		if (empty($password_1)) { array_push($errors, "Password is required"); }
+		if (empty($taskdescription)) { array_push($errors, "Insert Some task description"); }
 
 		// form validation: ensure that the form is correctly filled
 		function validate_phone_number($phone)
@@ -150,9 +150,15 @@
 			//$username = strtoupper($username);
 			// $status = "PENDING";
 			$query = "INSERT INTO staff (username, firstname, lastname, email, phone, category, description, password, status) 
-					  VALUES('$username','$firstname', '$lastname',	'$email', '$phone', '$category','$taskdescription', '$password'	'$status')";
-			mysqli_query($db, $query);
+					  VALUES('$username','$firstname', '$lastname',	'$email', '$phone', '$category','$taskdescription', '$password','$status')";
+			$res = mysqli_query($db, $query);
+			if($res){
+				echo "Data Updated Successfly";
+			}else{
+				echo "dinsnt excecute";
+			}
 
+			
 			header('location: addstaff.php');
 		}
 

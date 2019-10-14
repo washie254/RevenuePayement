@@ -104,12 +104,12 @@
           <span>Dashboard</span>
         </a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="addstaff.php">
           <i class="fas fa-fw fa-user"></i>
           <span>Add Staff</span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="viewstaff.php">
           <i class="fas fa-fw fa-users"></i>
           <span>View Staff</span></a>
@@ -147,117 +147,52 @@
        
 
         <!-- Area Chart Example-->
-        <div class="card mb-3"><br>
-          <!-- ///////////////////////////////////////////// -->
-          <div class="container">
-            <div class="card card-register" style="width:98%;">
-            <div class="card-header">ADD STAFF</div>
-            <div class="card-body">
-                <style>
-                .error {
-                    width: 92%; 
-                    margin: 0px auto; 
-                    padding: 10px; 
-                    border: 1px solid #a94442; 
-                    color: #a94442; 
-                    background: #f2dede; 
-                    border-radius: 5px; 
-                    text-align: left;
-                }
-                </style>
-                <form method="post" action="addstaff.php">
-                <?php include('errors.php'); ?>
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-chart-area"></i>
+            Account Information
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered table-stripped" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>st id:</th>
+                  <th>s. uname</th>
+                  <th>s. names</th>
+                  <th>s. email</th>
+                  <th>s. Tel</th>
+                  <th>s. Category</th>
+                  <th>s. Status</th>
+                </tr>
+              <thead>
+              <?php
+                $sql0 = "SELECT * FROM staff";
+                $result0 = mysqli_query($db, $sql0);
 
-                <div class="form-group">
-                    <div class="form-row">
-                    <div class="col-md-6">
-                        <div class="form-label-group">
-                        <input type="text" id="username" class="form-control" name="username" placeholder="username" required="required">
-                        <label for="username">Username. </label>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-row">
-                    <div class="col-md-6">
-                        <div class="form-label-group">
-                        <input type="text" id="firstName"  name="firstname" class="form-control" placeholder="First name" required="required" autofocus="autofocus">
-                        <label for="firstName">First name</label>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-label-group">
-                        <input type="text" id="lastName" name="lastname" class="form-control" placeholder="Last name" required="required">
-                        <label for="lastName">Last name</label>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-row">
-                    <div class="col-md-6">
-                        <div class="form-label-group">
-                        <input type="text" id="phone" class="form-control" name="phone" placeholder="phone number" required="required">
-                        <label for="phone">Tel No. </label>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-row">
-                    <div class="col-md-6">
-                        <div class="form-label-group">
-                        <select type="text" id="category" name="category" class="form-control" required="required">
-                            <option value="Finance">Finance</option>
-                            <option value="Field">Field</option>
-                        </select>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-label-group">
-                        <textarea type="text" id="taskdescription" class="form-control" name="taskdescription" placeholder="task description" required="required"></textarea>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-row">
-                    <div class="col-md-6">
-                        <div class="form-label-group">
-                        <input type="text" id="email" class="form-control" name="email" placeholder="email" required="required">
-                        <label for="email">Email. </label>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-row">
-                    <div class="col-md-6">
-                        <div class="form-label-group">
-                        <input type="password" id="inputPassword" class="form-control" name="password_1" placeholder="Password" required="required">
-                        <label for="inputPassword">Password</label>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-label-group">
-                        <input type="password" id="confirmPassword" class="form-control"  name="password_2" placeholder="Confirm password" required="required">
-                        <label for="confirmPassword">Confirm password</label>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <button class="btn btn-primary btn-block" type="submit" name="add_staff">ADD STAFF</button>
-                </form>
-                <div class="text-center">
-                <!-- <a class="d-block small mt-3" href="login.php">Login Page</a> -->
-                <!-- <a class="d-block small" href="forgot-password.php">Forgot Password?</a> -->
-                </div>
-            </div>
-            </div>
-            </div>
-          <!-- ///////////////////////////////////////////// -->
+                while($row = mysqli_fetch_array($result0, MYSQLI_NUM)){
+                $sid= $row[0];
+                $suname= strtoupper($row[1]);
+                $snames = $row[2]." ".$row[3];
+                $semail = $row[4];
+                $sphone = $row[5];
+                $scategory = $row[6];
+                $sstatus = $row[9];
+                
+              echo '
+                <tr>
+                    <td>'.$sid.'</td>
+                    <td>'.$suname.'</td>
+                    <td>'.$snames.'</td>
+                    <td>'.$semail.' </td>
+                    <td>'.$phone.'</td>
+                    <td>'.$scategory.'</td>
+                    <td>'.$sstatus.'</td>
+                </tr>';
+            }
+            ?>
+            </table>
+          </div>
+          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
 
    

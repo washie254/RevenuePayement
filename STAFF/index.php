@@ -53,15 +53,16 @@
 
     <?php
     $user =$_SESSION['username'];
-    $sql = "SELECT * FROM admin WHERE username = '$user'";
+    $sql = "SELECT * FROM staff WHERE username = '$user'";
     $result = mysqli_query($db, $sql);
 
     while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
       $uname= $row[1];
       $tuname= strtoupper($row[1]);
       $names = $row[2]." ".$row[3];
-      $phone = $row[4];
-      $email = $row[5];
+      $phone = $row[5];
+      $email = $row[4];
+      $dept = $row[6];
     }
     ?>
 

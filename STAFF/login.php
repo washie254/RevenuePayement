@@ -10,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Admin - Login</title>
+  <title>Staff - Login</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -60,10 +60,9 @@
               </label>
             </div>
           </div>
-          <button class="btn btn-primary btn-block" type="submit" name="login_admin">Login</button>
+          <button class="btn btn-primary btn-block" type="submit" name="login_staff">Login</button>
         </form>
         <div class="text-center">
-          <a class="d-block small mt-3" href="register.php">Register an Account</a>
           <!-- <a class="d-block small" href="forgot-password.html">Forgot Password?</a> -->
         </div>
       </div>
