@@ -163,6 +163,7 @@
                     Tel   : <?=$phone?> <br>
                     email:  <?=$email?> <br>
                     Department: <?=$dept?>
+                    Kindly see this 
                 </td>
                 <td>
                    Staff Added: 6 <br>
