@@ -11,6 +11,9 @@
 	
 
 	// connect to database
+	// db:africand_smartrev
+	// user:africand_sr
+	// pass: Raven254#$
 	$db = mysqli_connect('localhost', 'root', '', 'dkut_revenue_system');
 
 	// REGISTER USER
