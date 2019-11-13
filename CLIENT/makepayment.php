@@ -172,8 +172,10 @@
               </div>
             </div>
           </div>
+          <?php
+            echo '<a href="mpesa/initiate.php?id='.$phone.'&amount='.$packageprice.'"><strong><button type="button" class="btn btn-primary btn-block">Make Payment</button>';
+          ?>
           
-          <button class="btn btn-primary btn-block" type="submit" name="">Make Payment</button>
         </form>
         </div>
      

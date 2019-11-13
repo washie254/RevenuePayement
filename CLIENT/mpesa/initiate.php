@@ -1,9 +1,19 @@
 <?php
+
+include('server.php');
+//include('connect-db.php');
+if (isset($_GET['id'])){
+  $phone = $_GET['id'];
+  $amount = $_GET['amount'];
+}
+
+
 // require('includes/config.php');
 
 // ini_set('display_errors', 1);
 // ini_set('display_startup_errors', 1);
 // error_reporting(E_ALL);
+
 error_reporting(0);
 ini_set('display_errors', 0);
 
@@ -12,21 +22,16 @@ header("Content-Type: application/json; charset=UTF-8");
 
 // $obj = json_decode($_GET["phone"],$_GET["amount"],$_GET["order_no"], false);
 
-$phone = 254718610463;
-$amount = '5';
-$order_no = '92';
+// $phone = 254718610463;
+// $amount = '5';
+$order_no = '001';
 
 mpesaPush($phone, $amount, $order_no );
 
-// $phone = $_POST['phone'];
-
-// function test($phone, $amount, $order_no){
-//   echo $phone.''.$amount.''.$order_no;  
-// }
 
 function mpesaPush($phone, $amount, $order_no ){
 
-$account_no = 'Book_store-'.$order_no;
+$account_no = 'Smart_Revenue-'.$order_no;
 
 //$conn = mysqli_connect("localhost", "ccco_Macheda2", "h@UbMCo0JEa{", "ccco_Macheda2");
 $conn = mysqli_connect("localhost","africand_sr","Raven254#$","africand_smartrev");
