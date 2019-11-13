@@ -64,12 +64,10 @@
         $email = $row [6];
         $evar = $row[8];
         $street = $row[10];
-        $package = $row[11];
-        $packageprice = $row[12];
       }
-      if($ver == 0){
+      if($evar == 0){
         $stat = 'NOT VERIFIED';
-      }elseif($ver==1){
+      }elseif($evar==1){
         $stat = 'VERIFIED';
       }
       else{
@@ -140,45 +138,48 @@
           <!-- <li class="breadcrumb-item active">SECTION</li> -->
         </ol>
 
-
-        <div class="card-body">
-        <style>
-          .error {
-            width: 92%; 
-            margin: 0px auto; 
-            padding: 10px; 
-            border: 1px solid #a94442; 
-            color: #a94442; 
-            background: #f2dede; 
-            border-radius: 5px; 
-            text-align: left;
-          }
-        </style>
-        <form method="post" action="register.php">
-          <?php include('errors.php'); ?>
-          <div class="form-group">
-            <div class="form-row">
-              <div class="col-md-6">
-                <div class="form-label-group">
-                  <input type="password" id="inputPassword" class="form-control" name="package" placeholder="Package" required="required" disabled>
-                  <label for="inputPassword"><?=$package?></label>
+        <div class="container">
+            <div class="card card-register mx-auto mt-5">
+            <div class="card-header">Select a package</div>
+            <div class="card-body">
+                <style>
+                .error {
+                    width: 92%; 
+                    margin: 0px auto; 
+                    padding: 10px; 
+                    border: 1px solid #a94442; 
+                    color: #a94442; 
+                    background: #f2dede; 
+                    border-radius: 5px; 
+                    text-align: left;
+                }
+                </style>
+                <form method="post" action="select.php">
+                <?php include('errors.php'); ?>
+                
+                <div class="form-group">
+                    <div class="form-label-group">
+                    <select type="email" id="inputStreet" name="package" class="form-control" required="required">
+                        <option value="Monthly">Monthly Package  </option>
+                        <option value="Weekly">Weekly Package</option>
+                        <option value="Daily">Daily Package </option>
+                    </select>
+                    <!-- <label for="inputEmail">Select Street</label> -->
+                    </div>
+                    <input type="text" name="tel" value="<?=$_SESSION["username"]?>" style="opacity:0;"/>
                 </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-label-group">
-                  <input type="password" id="confirmPassword" class="form-control"  name="amount" placeholder="Amount" required="required" disabled>
-                  <label for="confirmPassword"><?=$packageprice?> KSH</label>
+                
+                <button class="btn btn-primary btn-block" type="submit" name="select_pkg">Select Package</button>
+                </form>
+                <div class="text-center">
+                <!-- <a class="d-block small mt-3" href="login.php">Login Page</a> -->
+                <!-- <a class="d-block small" href="forgot-password.php">Forgot Password?</a> -->
                 </div>
-              </div>
             </div>
-          </div>
-          
-          <button class="btn btn-primary btn-block" type="submit" name="">Make Payment</button>
-        </form>
+            </div>
         </div>
-     
 
-        
+
 
       <!-- Sticky Footer -->
       <footer class="sticky-footer">

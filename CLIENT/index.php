@@ -14,6 +14,31 @@
 	}
 
 ?>
+<?php
+  $phone =$_SESSION['username'];
+  $sql = "SELECT * FROM member WHERE mobile_number = '$phone'";
+  $result = mysqli_query($db, $sql);
+
+  while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
+    $fname= strtoupper($row[1]);
+    $names = $row[1]." ".$row[2];
+    $phone = $row[3];
+    $ver = $row[5];
+    $email = $row [6];
+    $evar = $row[8];
+    $street = $row[10];
+    $package = $row[11];
+    $packageprice = $row[12];
+  }
+  if($ver == 0){
+    $stat = 'NOT VERIFIED';
+  }elseif($ver==1){
+    $stat = 'VERIFIED';
+  }
+  else{
+    $stat = 'ERROR VERIFYING ACCOUNT';
+  }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,32 +75,6 @@
     </button>
 
     <!-- Navbar Search -->
-
-    <?php
-    $phone =$_SESSION['username'];
-    $sql = "SELECT * FROM member WHERE mobile_number = '$phone'";
-    $result = mysqli_query($db, $sql);
-
-    while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
-      $fname= strtoupper($row[1]);
-      $names = $row[1]." ".$row[2];
-      $phone = $row[3];
-      $ver = $row[5];
-      $email = $row [6];
-      $evar = $row[8];
-      $street = $row[10];
-    }
-    if($ver == 0){
-      $stat = 'NOT VERIFIED';
-    }elseif($ver==1){
-      $stat = 'VERIFIED';
-    }
-    else{
-      $stat = 'ERROR VERIFYING ACCOUNT';
-    }
-    ?>
-
-  
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
@@ -129,7 +128,6 @@
     <div id="content-wrapper">
 
       <div class="container-fluid">
-
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
@@ -138,6 +136,7 @@
           <li class="breadcrumb-item active">Overview</li>
         </ol>
 
+     
         <!-- Icon Cards-->
         <div class="row">
           <div class="col-xl-3 col-sm-6 mb-3">
@@ -156,7 +155,7 @@
                 <div class="card-body-icon">
                   <i class="fas fa-fw fa-list"></i>
                 </div>
-                <div class="mr-5">0 Permits Generated!</div>
+                <div class="mr-5">Package: <?=$package?></div>
               </div>
             </div>
           </div>
@@ -168,12 +167,6 @@
                 </div>
                 <div class="mr-5">Account Status : <b> <?=$stat?></b></div>
               </div>
-              <!-- <a class="card-footer text-white clearfix small z-1" href="#">
-                <span class="float-left">View Details</span>
-                <span class="float-right">
-                  <i class="fas fa-angle-right"></i>
-                </span>
-              </a> -->
             </div>
           </div>
           <div class="col-xl-3 col-sm-6 mb-3">
@@ -193,7 +186,17 @@
             </div>
           </div>
         </div>
-
+        
+        <?php
+          if($package==""){
+            echo '   <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="select.php">Select A package</a>
+              </li>
+            </ol>';
+          }
+        ?>
         <!-- Area Chart Example-->
         <div class="card mb-3">
           <div class="card-header">

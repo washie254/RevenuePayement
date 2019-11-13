@@ -118,7 +118,44 @@
 				array_push($errors, "Wrong phone number/password combination");
 			}
         }
-    }
+	}
+	
+	//select_pkg
+	if (isset($_POST['select_pkg'])) {
+		// receive all input values from the form
+        $package = mysqli_real_escape_string($db, $_POST['package']);
+        $tel = mysqli_real_escape_string($db, $_POST['tel']);
+
+
+		// form validation: ensure that the form is correctly filled
+        if (empty($package)) { array_push($errors, "could resolve selected package"); }
+		if (empty($tel)) { array_push($errors, "couldn't resolve your id"); }
+		
+		//DETERMINE PACKAGE PRICE
+		if($package == 'Monthly'){
+			$packageprice = '100';
+		}elseif($package == 'Weekly'){
+			$packageprice = '40';
+		}elseif($package == 'Daily'){
+			$packageprice ='20';
+		}else{
+			array_push($errors, "couldn't resolve your id");
+		}
+	
+		if (count($errors) == 0) {
+			 $query = "UPDATE member 
+				SET 
+					package = '$package', 
+					packageprice = $packageprice,
+					packageactivedate = $cdate
+				WHERE
+					mobile_number = '$tel'";
+			 mysqli_query($db, $query);
+
+			header('location: index.php');
+		}
+
+	}
 
 
 ?>
