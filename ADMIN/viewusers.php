@@ -52,29 +52,17 @@
     <!-- Navbar Search -->
 
     <?php
-      $phone =$_SESSION['username'];
-      $sql = "SELECT * FROM member WHERE mobile_number = '$phone'";
-      $result = mysqli_query($db, $sql);
+    $user =$_SESSION['username'];
+    $sql = "SELECT * FROM admin WHERE username = '$user'";
+    $result = mysqli_query($db, $sql);
 
-      while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
-        $fname= strtoupper($row[1]);
-        $names = $row[1]." ".$row[2];
-        $phone = $row[3];
-        $ver = $row[5];
-        $email = $row [6];
-        $evar = $row[8];
-        $street = $row[10];
-        $package = $row[11];
-        $packageprice = $row[12];
-      }
-      if($ver == 0){
-        $stat = 'NOT VERIFIED';
-      }elseif($ver==1){
-        $stat = 'VERIFIED';
-      }
-      else{
-        $stat = 'ERROR VERIFYING ACCOUNT';
-      }
+    while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
+      $uname= $row[1];
+      $tuname= strtoupper($row[1]);
+      $names = $row[2]." ".$row[3];
+      $phone = $row[4];
+      $email = $row[5];
+    }
     ?>
 
   
@@ -93,11 +81,11 @@
     <ul class="navbar-nav ml-auto ml-md-0">
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <?php  echo $phone." ".$fname; ?> <i class="fas fa-user-circle fa-fw"> </i>
+        <?php  echo $phone." ".$tuname; ?> <i class="fas fa-user-circle fa-fw"> </i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="makepayment.php">Make Payments</a>
-          <a class="dropdown-item" href="phistory.php">Payment History</a>
+          <a class="dropdown-item" href="addstaff.php">Add Staff</a>
+          <a class="dropdown-item" href="#">View Users</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
         </div>
@@ -116,16 +104,31 @@
           <span>Dashboard</span>
         </a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="makepayment.php">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Make Payment</span></a>
+      <li class="nav-item">
+        <a class="nav-link" href="addstaff.php">
+          <i class="fas fa-fw fa-user"></i>
+          <span>Add Staff</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="phistory.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Payment History</span></a>
+        <a class="nav-link" href="viewstaff.php">
+          <i class="fas fa-fw fa-users"></i>
+          <span>View Staff</span></a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="viewusers.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Registered Members</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="reports.php">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Reports</span></a>
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fas fa-fw fa-users"></i>
+          <span>Add Admin</span></a>
+      </li> -->
     </ul>
 
     <div id="content-wrapper">
@@ -135,52 +138,64 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="#">PAYMENT SECTION</a>
+            <a href="#">Dashboard</a>
           </li>
-          <!-- <li class="breadcrumb-item active">SECTION</li> -->
+          <li class="breadcrumb-item active">Overview</li>
         </ol>
 
-
-        <div class="card-body">
-        <style>
-          .error {
-            width: 92%; 
-            margin: 0px auto; 
-            padding: 10px; 
-            border: 1px solid #a94442; 
-            color: #a94442; 
-            background: #f2dede; 
-            border-radius: 5px; 
-            text-align: left;
-          }
-        </style>
-        <form method="post" action="register.php">
-          <?php include('errors.php'); ?>
-          <div class="form-group">
-            <div class="form-row">
-              <div class="col-md-6">
-                <div class="form-label-group">
-                  <input type="password" id="inputPassword" class="form-control" name="package" placeholder="Package" required="required" disabled>
-                  <label for="inputPassword"><?=$package?></label>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-label-group">
-                  <input type="password" id="confirmPassword" class="form-control"  name="amount" placeholder="Amount" required="required" disabled>
-                  <label for="confirmPassword"><?=$packageprice*10?> KSH</label>
-                </div>
-              </div>
-            </div>
+        <!-- Icon Cards-->
+       
+<div><p>Report Summary of the </p></div>
+        <!-- Area Chart Example-->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-chart-area"></i>
+            Account Information
           </div>
-          <?php
-            echo '<a href="mpesa/initiate.php?id='.$phone.'&amount='.$packageprice.'"><strong><button type="button" class="btn btn-primary btn-block">Make Payment</button>';
-          ?>
-          
-        </form>
-        </div>
-     
+          <div class="card-body">
+            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>st id:</th>
+                  <th>m. names</th>
+                  <th>m. phone</th>
+                  <th>m. email</th>
+                  <th>m. package</th>
+                  <th>pkg date active</th>
+                </tr>
+              <thead>
+              <?php
+                $sql0 = "SELECT * FROM member";
+                $result0 = mysqli_query($db, $sql0);
 
-        
+                while($row = mysqli_fetch_array($result0, MYSQLI_NUM)){
+                $mid= $row[0];
+                $mnames = $row[1]." ".$row[2];
+                $mphone = $row[3];
+                $memail = $row[6];
+                $package = $row[11];
+                $packageactivedate = $row[13];
+                
+              echo '
+                <tr>
+                    <td>'.$mid.'</td>
+                    <td>'.$mnames.'</td>
+                    <td>'.$mphone.'</td>
+                    <td>'.$memail.' </td>
+                    <td>'.$package.'</td>
+                    <td>'.$packageactivedate.'</td>
+                </tr>';
+            }
+            ?>
+            </table>
+          </div>
+          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+
+   
+
+      </div>
+      <!-- /.container-fluid -->
 
       <!-- Sticky Footer -->
       <footer class="sticky-footer">

@@ -14,31 +14,6 @@
 	}
 
 ?>
-<?php
-  $phone =$_SESSION['username'];
-  $sql = "SELECT * FROM member WHERE mobile_number = '$phone'";
-  $result = mysqli_query($db, $sql);
-
-  while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
-    $fname= strtoupper($row[1]);
-    $names = $row[1]." ".$row[2];
-    $phone = $row[3];
-    $ver = $row[5];
-    $email = $row [6];
-    $evar = $row[8];
-    $street = $row[10];
-    $package = $row[11];
-    $packageprice = $row[12];
-  }
-  if($evar== 0){
-    $stat = 'NOT VERIFIED';
-  }elseif($evar==1){
-    $stat = 'VERIFIED';
-  }
-  else{
-    $stat = 'ERROR VERIFYING ACCOUNT';
-  }
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -75,6 +50,22 @@
     </button>
 
     <!-- Navbar Search -->
+
+    <?php
+    $user =$_SESSION['username'];
+    $sql = "SELECT * FROM admin WHERE username = '$user'";
+    $result = mysqli_query($db, $sql);
+
+    while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
+      $uname= $row[1];
+      $tuname= strtoupper($row[1]);
+      $names = $row[2]." ".$row[3];
+      $phone = $row[4];
+      $email = $row[5];
+    }
+    ?>
+
+  
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
@@ -90,11 +81,11 @@
     <ul class="navbar-nav ml-auto ml-md-0">
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <?php  echo $phone." ".$fname; ?> <i class="fas fa-user-circle fa-fw"> </i>
+        <?php  echo $phone." ".$tuname; ?> <i class="fas fa-user-circle fa-fw"> </i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="makepayment.php">Make Payments</a>
-          <a class="dropdown-item" href="phistory.php">Payment History</a>
+          <a class="dropdown-item" href="addstaff.php">Add Staff</a>
+          <a class="dropdown-item" href="#">View Users</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
         </div>
@@ -107,96 +98,55 @@
 
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="index.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="makepayment.php">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Make Payment</span></a>
+        <a class="nav-link" href="addstaff.php">
+          <i class="fas fa-fw fa-user"></i>
+          <span>Add Staff</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="phistory.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Payment History</span></a>
+        <a class="nav-link" href="viewstaff.php">
+          <i class="fas fa-fw fa-users"></i>
+          <span>View Staff</span></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="viewusers.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Registered Members</span></a>
+      </li>
+      <li class="nav-item acive">
+        <a class="nav-link" href="reports.php">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Reports</span></a>
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fas fa-fw fa-users"></i>
+          <span>Add Admin</span></a>
+      </li> -->
     </ul>
 
     <div id="content-wrapper">
 
       <div class="container-fluid">
+
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="#">Dashboard</a>
+            <a href="#">SUMMARY REPORTS</a>
+            <a href="pdf/usersntransactions.php" target=0><button class="bn btn-primary"><i class="fa fa-download"></i> DOWNLOAD THIS REPORT</button></a>
           </li>
-          <li class="breadcrumb-item active">Overview</li>
+          <li class="breadcrumb-item active"> INCLUSIVE OF PAYMENT REPORTS</li>
         </ol>
 
-     
         <!-- Icon Cards-->
-        <div class="row">
-          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-primary o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                  <i class="fas fa-fw fa-comments"></i>
-                </div>
-                <div class="mr-5">0 Payments made!</div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-warning o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                  <i class="fas fa-fw fa-list"></i>
-                </div>
-                <div class="mr-5">Package: <?=$package?></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-success o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                  <i class="fas fa-fw fa-shopping-cart"></i>
-                </div>
-                <div class="mr-5">Account Status : <b> <?=$stat?></b></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-danger o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                  <i class="fas fa-fw fa-life-ring"></i>
-                </div>
-                <div class="mr-5">DOWNLOAD PERERMIT !</div>
-              </div>
-              <a class="card-footer text-white clearfix small z-1" href="#">
-                <span class="float-left">View Details</span>
-                <span class="float-right">
-                  <i class="fas fa-angle-right"></i>
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        <?php
-          if($package==""){
-            echo '   <!-- Breadcrumbs-->
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                <a href="select.php">Select A package</a>
-              </li>
-            </ol>';
-          }
-        ?>
+       
+<div><p>SUMMARY OF THE REPORTS ON THE SYSTEM</p></div>
         <!-- Area Chart Example-->
         <div class="card mb-3">
           <div class="card-header">
@@ -204,63 +154,89 @@
             Account Information
           </div>
           <div class="card-body">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
-                  <th>User Information</th>
-                  <th>Account Information</th>
+                  <th>st id:</th>
+                  <th>m. names</th>
+                  <th>m. phone</th>
+                  <th>m. email</th>
+                  <th>m. package</th>
+                  <th>pkg date active</th>
                 </tr>
               <thead>
-              <tfoot>
-                  <tr>
-                    <th>User Information</th>
-                    <th>Account Information</th>
-                  </tr>
-                </tfoot>
-              <tr>
-                <td>
-                    Name  : <?=$names?>  <br>
-                    Tel   : <?=$phone?>  &nbsp; &nbsp; &nbsp; &nbsp;
-                     <?php
-                      if($ver==1){
-                        echo '<img src="icons/check-2x.png"><b style="color:green;">Verified </b> ';
-                      }
-                      elseif($ver==0){
-                       
-                        echo '<a href="#"><button type="button" class="btn btn-outline-danger">Verify</button></a>';
-                      }
-                      else{
-                        echo '<button type="button" class="btn btn-outline-secondary">Not Determined</button>';
-                      }
-                     ?> <br>
-                     Email: <?=$email?>
-                      <?php
-                        if($evar==1){
-                          echo '<img src="icons/check-2x.png"> <b style="color:green;">Verified </b> ';
-                        }
-                        elseif($evar==0){
-                          echo '<a href="mailOTP/index.php?id='.$phone.'&email='.$email.'&names='.$names.'"><button type="button" class="btn btn-outline-danger">Verify</button></a>';
-                        }
-                        else{
-                          echo '<button type="button" class="btn btn-outline-secondary">Not Determined</button>';
-                        }
-                      ?>
-                       
-                     <br>
-                    Status: <?=$stat?> 
-                </td>
-                <td>
-                   Total Payments: 42 <br>
-                   total Permits : 10 <br>
+              <?php
+                $sql0 = "SELECT * FROM member";
+                $result0 = mysqli_query($db, $sql0);
 
-                </td>
-              </tr>
+                while($row = mysqli_fetch_array($result0, MYSQLI_NUM)){
+                $mid= $row[0];
+                $mnames = $row[1]." ".$row[2];
+                $mphone = $row[3];
+                $memail = $row[6];
+                $package = $row[11];
+                $packageactivedate = $row[13];
+                
+              echo '
+                <tr>
+                    <td>'.$mid.'</td>
+                    <td>'.$mnames.'</td>
+                    <td>'.$mphone.'</td>
+                    <td>'.$memail.' </td>
+                    <td>'.$package.'</td>
+                    <td>'.$packageactivedate.'</td>
+                </tr>';
+            }
+            ?>
+            </table>
+          </div>
+          <br>
+          <p><h2>PAYMENTS SUMMARY REPORTS </h2>the following are the payments made by the users of the system and their status with regards to 
+          success or failure of the transactions</p>
+          <div class="card-body">
+            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>transaction id#</th>
+                  <th>Amount</th>
+                  <th>Mpesa Recipt no</th>
+                  <th>Transaction Date</th>
+                  <th>Phone Number</th>
+                  <th>State</th>
+                </tr>
+              <thead>
+              <?php
+                $sql0 = "SELECT * FROM mpesa WHERE resultCode='0' ORDER BY phoneNumber, amount";
+                $result0 = mysqli_query($db, $sql0);
+
+                while($row = mysqli_fetch_array($result0, MYSQLI_NUM)){
+                    $id= $row[0];
+                    $amount = $row[5];
+                    $mpesareciptno = $row[6];
+                    $transactiondate = $row[10];
+                    $phonenumber = $row[8];
+                    $state = $row[9];
+                
+                    echo '
+                        <tr>
+                            <td>'.$id.'</td>
+                            <td>'.$amount.'</td>
+                            <td>'.$mpesareciptno.'</td>
+                            <td>'.$transactiondate.' </td>
+                            <td>'.$phonenumber.'</td>
+                            <td>'.$state.'</td>
+                        </tr>';
+                }
+            ?>
+
             </table>
           </div>
           <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
 
-        </div>
+                <a href="pdf/usersntransactions.php" target=0><button class="bn btn-primary"><i class="fa fa-download"></i> DOWNLOAD THIS REPORT</button></a>
+
+      </div>
       <!-- /.container-fluid -->
 
       <!-- Sticky Footer -->

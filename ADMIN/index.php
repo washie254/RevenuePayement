@@ -115,20 +115,20 @@
           <span>View Staff</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="viewusers.php">
           <i class="fas fa-fw fa-table"></i>
           <span>Registered Members</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="reports.php">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Reports</span></a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" href="#">
           <i class="fas fa-fw fa-users"></i>
           <span>Add Admin</span></a>
-      </li>
+      </li> -->
     </ul>
 
     <div id="content-wrapper">

@@ -133,11 +133,11 @@
 		
 		//DETERMINE PACKAGE PRICE
 		if($package == 'Monthly'){
-			$packageprice = '100';
+			$packageprice = '10';
 		}elseif($package == 'Weekly'){
-			$packageprice = '40';
+			$packageprice = '3';
 		}elseif($package == 'Daily'){
-			$packageprice ='20';
+			$packageprice ='2';
 		}else{
 			array_push($errors, "couldn't resolve your id");
 		}

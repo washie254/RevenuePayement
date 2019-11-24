@@ -14,6 +14,31 @@
 	}
 
 ?>
+<?php
+  $phone =$_SESSION['username'];
+  $sql = "SELECT * FROM member WHERE mobile_number = '$phone'";
+  $result = mysqli_query($db, $sql);
+
+  while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
+    $fname= strtoupper($row[1]);
+    $names = $row[1]." ".$row[2];
+    $phone = $row[3];
+    $ver = $row[5];
+    $email = $row [6];
+    $evar = $row[8];
+    $street = $row[10];
+    $package = $row[11];
+    $packageprice = $row[12];
+  }
+  if($ver == 0){
+    $stat = 'NOT VERIFIED';
+  }elseif($ver==1){
+    $stat = 'VERIFIED';
+  }
+  else{
+    $stat = 'ERROR VERIFYING ACCOUNT';
+  }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,34 +75,6 @@
     </button>
 
     <!-- Navbar Search -->
-
-    <?php
-      $phone =$_SESSION['username'];
-      $sql = "SELECT * FROM member WHERE mobile_number = '$phone'";
-      $result = mysqli_query($db, $sql);
-
-      while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
-        $fname= strtoupper($row[1]);
-        $names = $row[1]." ".$row[2];
-        $phone = $row[3];
-        $ver = $row[5];
-        $email = $row [6];
-        $evar = $row[8];
-        $street = $row[10];
-        $package = $row[11];
-        $packageprice = $row[12];
-      }
-      if($ver == 0){
-        $stat = 'NOT VERIFIED';
-      }elseif($ver==1){
-        $stat = 'VERIFIED';
-      }
-      else{
-        $stat = 'ERROR VERIFYING ACCOUNT';
-      }
-    ?>
-
-  
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
@@ -116,12 +113,12 @@
           <span>Dashboard</span>
         </a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="makepayment.php">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Make Payment</span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item  active">
         <a class="nav-link" href="phistory.php">
           <i class="fas fa-fw fa-table"></i>
           <span>Payment History</span></a>
@@ -131,56 +128,69 @@
     <div id="content-wrapper">
 
       <div class="container-fluid">
-
         <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="#">PAYMENT SECTION</a>
-          </li>
-          <!-- <li class="breadcrumb-item active">SECTION</li> -->
-        </ol>
+        
 
+     
+        <!-- Icon Cards-->
+        
 
-        <div class="card-body">
-        <style>
-          .error {
-            width: 92%; 
-            margin: 0px auto; 
-            padding: 10px; 
-            border: 1px solid #a94442; 
-            color: #a94442; 
-            background: #f2dede; 
-            border-radius: 5px; 
-            text-align: left;
-          }
-        </style>
-        <form method="post" action="register.php">
-          <?php include('errors.php'); ?>
-          <div class="form-group">
-            <div class="form-row">
-              <div class="col-md-6">
-                <div class="form-label-group">
-                  <input type="password" id="inputPassword" class="form-control" name="package" placeholder="Package" required="required" disabled>
-                  <label for="inputPassword"><?=$package?></label>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-label-group">
-                  <input type="password" id="confirmPassword" class="form-control"  name="amount" placeholder="Amount" required="required" disabled>
-                  <label for="confirmPassword"><?=$packageprice*10?> KSH</label>
-                </div>
-              </div>
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-table"></i>
+            Recent Payments</div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>#id</th>
+                    <th>Amount</th>
+                    <th>M-Pesa Receipt #</th>
+                    <th>date</th>
+                    <th>time</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>#id</th>
+                    <th>Amount</th>
+                    <th>M-Pesa Receipt #</th>
+                    <th>State</th>
+                    <th>Datetime</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  <?php
+                    $phone =$_SESSION['username'];
+                    $sql = "SELECT * FROM mpesa WHERE phoneNumber = '$phone'";
+                    $result = mysqli_query($db, $sql);
+                    while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
+                        if($row[9]=='0'){
+                            $state='Success';
+                        }
+                        if($row[0]=='1'){
+                            $state='Failed';
+                        }
+                        echo ' <tr>
+                            <td>'.$row[0].'</td>
+                            <td>'.$row[5].'</td>
+                            <td>'.$row[6].'</td>
+                            <td>'.$state.'</td>
+                            <td>'.$row[10].'</td>
+                        </tr>';
+                    }
+                  ?>
+                </tbody>
+              </table>
             </div>
           </div>
-          <?php
-            echo '<a href="mpesa/initiate.php?id='.$phone.'&amount='.$packageprice.'"><strong><button type="button" class="btn btn-primary btn-block">Make Payment</button>';
-          ?>
-          
-        </form>
+          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
-     
 
-        
+      </div>
+      <!-- /.container-fluid -->
 
       <!-- Sticky Footer -->
       <footer class="sticky-footer">
