@@ -28,6 +28,15 @@
   } 
 ?>
 
+<?php
+    $sql = "SELECT * FROM member";
+    if( isset($_GET['search']) ){
+        $name = mysqli_real_escape_string($db, htmlspecialchars($_GET['search']));
+        $sql = "SELECT * FROM member WHERE firstname ='$name'";
+    }
+    $resultz = $db->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -125,7 +134,7 @@
 
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
-      <li class="nav-item ">
+      <li class="nav-item">
         <a class="nav-link" href="index.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
@@ -150,13 +159,13 @@
             }
             else if($category=='Field'){
                 echo '
-                  <li class="nav-item active">
+                  <li class="nav-item">
                     <a class="nav-link" href="viewusers.php">
                       <i class="fas fa-fw fa-users"></i>
                       <span>View Users</span></a>
                   </li>
 
-                  <li class="nav-item">
+                  <li class="nav-item active">
                     <a class="nav-link" href="usersearch.php">
                       <i class="fas fa-fw fa-chart-area"></i>
                       <span>Users Search</span></a>
@@ -193,86 +202,46 @@
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-chart-area"></i>
-           User Accounts
+            search a user
           </div>
-          
           <div class="card-body">
-          <p><h2>Verified accounts</h2></p>
-          <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
-              <thead>
-                <tr>
-                  <th>st id:</th>
-                  <th>m. names</th>
-                  <th>m. phone</th>
-                  <th>m. email</th>
-                  <th>m. package</th>
-                  <th>pkg date active</th>
-                </tr>
-              <thead>
-              <?php
-                $sql0 = "SELECT * FROM member WHERE emailverification='1' ORDER BY id";
-                $result0 = mysqli_query($db, $sql0);
+            -------------------------------------------------------------
 
-                while($row = mysqli_fetch_array($result0, MYSQLI_NUM)){
-                $mid= $row[0];
-                $mnames = $row[1]." ".$row[2];
-                $mphone = $row[3];
-                $memail = $row[6];
-                $package = $row[11];
-                $packageactivedate = $row[13];
+            <p>
+            <form action=" " method="GET">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Search</label>
+                    <input type="text" class="form-control" name="search" placeholder="Type name here">&nbsp;
+                    <input type="submit" value="Search" name="btn" class="btn btn-sm btn-primary">
+                </div>
                 
-              echo '
+            </form>
+
+            <table class="table table-striped">
                 <tr>
-                    <td>'.$mid.'</td>
-                    <td>'.$mnames.'</td>
-                    <td>'.$mphone.'</td>
-                    <td>'.$memail.' </td>
-                    <td>'.$package.'</td>
-                    <td>'.$packageactivedate.'</td>
-                </tr>';
-            }
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Telephone</th>
+                    <th>Account Status</th>
+                </tr>
+
+            <?php
+                while($rowz = $resultz->fetch_assoc()){
+                    ?>
+                    <tr>
+                        <td><?php echo $rowz['id']; ?></td>
+                        <td><?php echo $rowz['firstname']; ?></td>
+                        <td><?php echo $rowz['lastname']; ?></td>
+                        <td><?php echo $rowz['mobile_number']; ?></td>
+                        <td><?php echo $rowz['emailverification']; ?></td>
+                    </tr>
+                    <?php
+                }
+
             ?>
             </table>
-
-            <p><h2>Accounts yet to be verified</h2></p>
-            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
-              <thead>
-                <tr>
-                  <th>st id:</th>
-                  <th>m. names</th>
-                  <th>m. phone</th>
-                  <th>m. email</th>
-                  <th>m. package</th>
-                  <th>pkg date active</th>
-                </tr>
-              <thead>
-              <?php
-                $sql0 = "SELECT * FROM member WHERE emailverification='0' ORDER BY id";
-                $result0 = mysqli_query($db, $sql0);
-
-                while($row = mysqli_fetch_array($result0, MYSQLI_NUM)){
-                $mid= $row[0];
-                $mnames = $row[1]." ".$row[2];
-                $mphone = $row[3];
-                $memail = $row[6];
-                $package = $row[11];
-                $packageactivedate = $row[13];
-                
-              echo '
-                <tr>
-                    <td>'.$mid.'</td>
-                    <td>'.$mnames.'</td>
-                    <td>'.$mphone.'</td>
-                    <td>'.$memail.' </td>
-                    <td>'.$package.'</td>
-                    <td>'.$packageactivedate.'</td>
-                </tr>';
-            }
-            ?>
-            </table>
-
-          </div>
-          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </p>--
         </div>
 
    

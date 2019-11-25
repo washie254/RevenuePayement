@@ -151,13 +151,13 @@
             else if($category=='Field'){
                 echo '
                   <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="viewusers.php">
                       <i class="fas fa-fw fa-users"></i>
                       <span>View Users</span></a>
                   </li>
 
                   <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="usersearch.php">
                       <i class="fas fa-fw fa-chart-area"></i>
                       <span>Users Search</span></a>
                   </li>
