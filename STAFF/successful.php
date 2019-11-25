@@ -125,7 +125,7 @@
 
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="index.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
@@ -136,7 +136,7 @@
             if($category =='Finance'){
 
               echo '
-                <li class="nav-item">
+                <li class="nav-item  active">
                   <a class="nav-link" href="successful.php">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Successful Transactions</span></a>
@@ -196,28 +196,41 @@
             Account Information
           </div>
           <div class="card-body">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
-                  <th>Current Staff Details</th>
-                  <th>Account Information</th>
+                  <th>transaction id#</th>
+                  <th>Amount</th>
+                  <th>Mpesa Recipt no</th>
+                  <th>Transaction Date</th>
+                  <th>Phone Number</th>
+                  <th>State</th>
                 </tr>
               <thead>
-              <tr>
-                <td>
-                    Name  : <?=$tuname?>  <br>
-                    Name  : <?=$names?>  <br>
-                    Tel   : <?=$phone?> <br>
-                    email:  <?=$email?> <br>
-                    Department: <?=$dept?>
-                    Kindly see this <?= $tuname?>
-                </td>
-                <td>
-                   Staff Added: 6 <br>
-                   total Staff: 15 <br>
+              <?php
+                $sql0 = "SELECT * FROM mpesa WHERE resultCode='0' ORDER BY phoneNumber, amount";
+                $result0 = mysqli_query($db, $sql0);
 
-                </td>
-              </tr>
+                while($row = mysqli_fetch_array($result0, MYSQLI_NUM)){
+                    $id= $row[0];
+                    $amount = $row[5];
+                    $mpesareciptno = $row[6];
+                    $transactiondate = $row[10];
+                    $phonenumber = $row[8];
+                    $state = $row[9];
+                
+                    echo '
+                        <tr>
+                            <td>'.$id.'</td>
+                            <td>'.$amount.'</td>
+                            <td>'.$mpesareciptno.'</td>
+                            <td>'.$transactiondate.' </td>
+                            <td>'.$phonenumber.'</td>
+                            <td>'.$state.'</td>
+                        </tr>';
+                }
+            ?>
+
             </table>
           </div>
           <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
