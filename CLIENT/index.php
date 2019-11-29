@@ -40,6 +40,8 @@
   }
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -169,22 +171,23 @@
               </div>
             </div>
           </div>
-          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-danger o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                  <i class="fas fa-fw fa-life-ring"></i>
+            <div class="col-xl-3 col-sm-6 mb-3">
+              <div class="card text-white bg-danger o-hidden h-100">
+                <div class="card-body">
+                  <div class="card-body-icon">
+                    <i class="fas fa-fw fa-life-ring"></i>
+                  </div>
+                  <div class="mr-5">DOWNLOAD PERMIT !</div>
                 </div>
-                <div class="mr-5">DOWNLOAD PERERMIT !</div>
+                <a class="card-footer text-white clearfix small z-1" href="#">
+                  <span class="float-left">View Details</span>
+                  <span class="float-right">
+                    <i class="fas fa-angle-right"></i>
+                  </span>
+                </a>
               </div>
-              <a class="card-footer text-white clearfix small z-1" href="#">
-                <span class="float-left">View Details</span>
-                <span class="float-right">
-                  <i class="fas fa-angle-right"></i>
-                </span>
-              </a>
             </div>
-          </div>
+            
         </div>
         
         <?php
@@ -250,8 +253,38 @@
                     Status: <?=$stat?> 
                 </td>
                 <td>
-                   Total Payments: 42 <br>
-                   total Permits : 10 <br>
+
+                <?php
+                  $sql = "SELECT * FROM mpesa WHERE phoneNumber = '$phone'";
+                  $result = mysqli_query($db, $sql);
+                  while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
+                      if($row[9]=='0'){
+                          $state='Success';
+                          $datepaidlast = $row[10];
+                      }
+                  }
+
+                  $timestamp = "$datepaidlast";
+                  $datetime = explode(" ",$timestamp);
+
+                  $datepaid = $datetime[0];
+                  $time = $datetime[1];
+
+                  if($package=='Weekly'){ $nextpay = date('Y-m-d', strtotime("$datepaid". ' + 7 days'));}
+                  elseif($package=='Monthly'){{ $nextpay = date('Y-m-d', strtotime("$datepaid". ' + 30 days'));}}
+
+                ?>
+                 Package : <?=$package?><br>
+                 Lastpay : <?=$datepaid?><br>
+                 Next Pay: <?=$nextpay?>
+                 <?php 
+                  if($nextpay > date("y-m-d")){
+                    $user = $_SESSION["username"];
+                    echo '<a href="pdf/permit.php?id='.$user.'&date='.$nextpay.'" target="0"><button class="btn btn-primary" style="width:100%"><i class="fa fa-download"></i>Download Permit</button></a>';
+                  //  echo "<br>
+                  //       <a href='pdf/permit.php?id='.$user.'&nextpay='.$nextpay.' target='0'><button class='btn btn-success'><i class='fa fa-download'></i> Download Permit </button></a>
+                  //  ";
+                 }?>
 
                 </td>
               </tr>

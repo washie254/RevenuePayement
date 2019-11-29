@@ -154,6 +154,8 @@
             text-align: left;
           }
         </style>
+
+       
         <form method="post" action="register.php">
           <?php include('errors.php'); ?>
           <div class="form-group">
